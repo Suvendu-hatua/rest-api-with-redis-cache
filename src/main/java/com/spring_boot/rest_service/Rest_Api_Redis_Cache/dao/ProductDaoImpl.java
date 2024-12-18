@@ -20,22 +20,30 @@ public class ProductDaoImpl implements ProductDao{
 
     @Override
     public List<Product> searchProductByName(String name) {
-        return List.of();
+        TypedQuery<Product>query=entityManager.createQuery("Select p from Product p where p.productName like :data",Product.class);
+        //Setting data
+        query.setParameter("data","%"+name+"%");
+        return query.getResultList();
     }
 
     @Override
     public List<Product> sortProductsByPriceAsc() {
-        return List.of();
+        TypedQuery<Product> query=entityManager.createQuery("Select p from Product p order by p.productPrice asc",Product.class);
+        return query.getResultList();
     }
 
     @Override
     public List<Product> sortProductsByPriceDesc() {
-        return List.of();
+        TypedQuery<Product> query=entityManager.createQuery("Select p from Product p order by p.productPrice desc",Product.class);
+        return query.getResultList();
     }
 
     @Override
     public List<Product> searchProductsByProductionYear(String year) {
-        return List.of();
+        TypedQuery<Product> query=entityManager.createQuery("Select p from Product p where p.productionDate like :data",Product.class);
+        //Setting parameter
+        query.setParameter("data","%"+year+"%");
+        return query.getResultList();
     }
 
 }
