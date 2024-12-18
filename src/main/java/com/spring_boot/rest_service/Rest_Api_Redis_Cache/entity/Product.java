@@ -11,6 +11,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     @Column(name = "product_name",nullable = false)
     private String productName;
 
@@ -24,7 +25,7 @@ public class Product {
     private int productCount;
 
     @Column(name = "production_date")
-    private Date productionDate;
+    private Date productionDate;   //default date format in mysql ---> "YYYY-MM-DD"
 
     //Constructors
 
@@ -40,6 +41,14 @@ public class Product {
     }
     //Setter and getter
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getProductName() {
         return productName;
