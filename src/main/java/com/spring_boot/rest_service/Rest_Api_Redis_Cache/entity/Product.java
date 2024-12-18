@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "store")
-public class Store {
+@Table(name = "products")
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -28,10 +28,10 @@ public class Store {
 
     //Constructors
 
-    public Store() {
+    public Product() {
     }
 
-    public Store(String productName, String productDesc, Double productPrice, int productCount, Date productionDate) {
+    public Product(String productName, String productDesc, Double productPrice, int productCount, Date productionDate) {
         this.productName = productName;
         this.productDesc = productDesc;
         this.productPrice = productPrice;
@@ -83,7 +83,7 @@ public class Store {
 
     @Override
     public String toString() {
-        return "Store{" +
+        return "Product{" +
                 "id=" + id +
                 ", productName='" + productName + '\'' +
                 ", productDesc='" + productDesc + '\'' +
