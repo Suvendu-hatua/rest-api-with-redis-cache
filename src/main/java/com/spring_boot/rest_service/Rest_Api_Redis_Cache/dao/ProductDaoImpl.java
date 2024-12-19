@@ -40,9 +40,9 @@ public class ProductDaoImpl implements ProductDao{
 
     @Override
     public List<Product> searchProductsByProductionYear(String year) {
-        TypedQuery<Product> query=entityManager.createQuery("Select p from Product p where p.productionDate like :data",Product.class);
+        TypedQuery<Product> query=entityManager.createQuery("Select p from Product p where YEAR(p.productionDate) = :data",Product.class);
         //Setting parameter
-        query.setParameter("data","%"+year+"%");
+        query.setParameter("data",year);
         return query.getResultList();
     }
 
