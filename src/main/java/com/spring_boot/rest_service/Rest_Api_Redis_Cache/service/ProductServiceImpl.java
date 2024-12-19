@@ -3,6 +3,9 @@ package com.spring_boot.rest_service.Rest_Api_Redis_Cache.service;
 import com.spring_boot.rest_service.Rest_Api_Redis_Cache.dao.ProductRepository;
 import com.spring_boot.rest_service.Rest_Api_Redis_Cache.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +27,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+    @Cacheable(value = "product",key = "#id")
     public Product getProductById(int id) {
         Optional<Product> result =productRepository.findById(id);
         if(result.isPresent()){
@@ -54,12 +58,14 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     @Transactional
+    @CachePut(value = "product",key = "#product.id")
     public Product addProduct(Product product) {
         return productRepository.save(product);
     }
 
     @Override
     @Transactional
+    @CachePut(value = "product",key = "#id")
     public Product updateProduct(int id, Product product) {
         Product prod=getProductById(id);
         if(prod!=null){
@@ -75,6 +81,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     @Transactional
+    @CacheEvict(value = "product",key = "#id")
     public void deleteProductById(int id) {
         Product product=getProductById(id);
         productRepository.delete(product);
