@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -29,6 +30,7 @@ public class ProductController {
             Product product=productService.getProductById(id);
             return ResponseEntity.ok(product);
         }catch (Exception e){
+            e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
 
@@ -61,6 +63,39 @@ public class ProductController {
             return new ResponseEntity<>("deleted successfully", HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //Search Product by name.
+    @GetMapping("/searchByName")
+    public ResponseEntity<List<Product>> searchProductsByName(@RequestParam("name") String name){
+        try{
+            return ResponseEntity.ok(productService.searchProductByName(name));
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
+    }
+    //sort products by price asc or desc
+    @GetMapping("/sort/{type}")
+    public ResponseEntity<List<Product>> sortProductsByPrice(@PathVariable String type){
+        try{
+            if(type.equals("asc")){
+                return ResponseEntity.ok(productService.sortProductsByPriceAsc());
+            }else{
+                return ResponseEntity.ok(productService.sortProductsByPriceDesc());
+            }
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
+    }
+    //Search products by production year
+    @GetMapping("/searchByYear")
+    public ResponseEntity<List<Product>> searchProductsByProductionYear(@RequestParam("year")String year){
+        try{
+            return ResponseEntity.ok(productService.searchProductsByProductionYear(year));
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.notFound().build();
         }
     }
 
