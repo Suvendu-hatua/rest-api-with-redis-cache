@@ -3,6 +3,7 @@ package com.spring_boot.rest_service.Rest_Api_Redis_Cache.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -26,14 +27,13 @@ public class Product implements Serializable {
     private int productCount;
 
     @Column(name = "production_date")
-    private Date productionDate;   //default date format in mysql ---> "YYYY-MM-DD"
+    private LocalDate productionDate;   //default date format in mysql ---> "YYYY-MM-DD"
 
     //Constructors
-
     public Product() {
     }
 
-    public Product(String productName, String productDesc, Double productPrice, int productCount, Date productionDate) {
+    public Product(String productName, String productDesc, Double productPrice, int productCount, LocalDate productionDate) {
         this.productName = productName;
         this.productDesc = productDesc;
         this.productPrice = productPrice;
@@ -83,11 +83,11 @@ public class Product implements Serializable {
         this.productCount = productCount;
     }
 
-    public Date getProductionDate() {
+    public LocalDate getProductionDate() {
         return productionDate;
     }
 
-    public void setProductionDate(Date productionDate) {
+    public void setProductionDate(LocalDate productionDate) {
         this.productionDate = productionDate;
     }
 
